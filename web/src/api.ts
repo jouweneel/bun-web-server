@@ -9,23 +9,15 @@ export const useApi = () => {
 	const [ state, setState ] = useState({
 		status: Status.idle,
 		error: null as string | null,
-		store: {} as Record<string,any>,
+		store: {} as Record<string,unknown>,
 	});
 
-	async function request<Input = any, Output = any>(
-		url: string, data?: Input, storeKey?: string
+	async function request<Output = unknown>(
+		url: string, req?: RequestInit, storeKey?: string
 	) {
 		setState({ ...state, status: Status.loading, error: null });
 
 		try {
-			const req: RequestInit = {
-				// headers: {
-				// 	"Content-Type": "application/json",
-				// }
-			};
-	
-			if (data) req.body = JSON.stringify(data);
-	
 			const response = await fetch(url, req);
 			const result = await response.json();
 	
@@ -44,7 +36,8 @@ export const useApi = () => {
 	}
 
 	return {
-		...state,
+		state,
+		setState,
 		request,
 	}
 }

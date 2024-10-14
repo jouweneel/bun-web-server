@@ -1,20 +1,28 @@
-import { useEffect } from "react";
-
 import { Status, useApi } from "./api";
 
 export function App() {
-	const { request, status } = useApi();
+	const { request, state, setState } = useApi();
 
-	async function initialize() {
-		const res = await request('/api/status');
-		console.log('RES', res);
+
+	async function load() {
+		await request('/api/status', undefined, 'status');
 	}
 
-	useEffect(() => {
-		initialize();
-	}, []);
+	function reset() {
+		setState({ ...state, store: {}});
+	}
 
-	const loading = status === Status.loading;
+	const loading = state.status === Status.loading;
 
-	return loading ? <div>Loading...</div> : <div>Howdy!</div>;
+	if (loading) return <div>Loading...</div>;
+
+	if (state.store.status) return <div>
+		<h3>Status: {JSON.stringify(state.store.status)}</h3>
+		<button onClick={reset}>Reset</button>
+	</div>;
+
+	return <div>
+		<h3>Howdy!</h3>
+		<button onClick={load}>Load status!</button>
+	</div>
 }

@@ -1,10 +1,22 @@
 {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": false,
-    "editor.detectIndentation": false,
-
-		"files.exclude": {
-			"**/.git": true,
-			"**/node_modules": true,
-		}
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"files.exclude": {
+		"**/.git": true,
+		"**/node_modules": true,
+	},
+	"remote.autoForwardPorts": false,
+	"remote.SSH.defaultForwardedPorts": [
+		{
+			"localPort": 1234,
+			"remotePort": 1234,
+			"name": "Web"
+		},
+		{
+			"localPort": 8000,
+			"remotePort": 8000,
+			"name": "Server"
+		},
+	]
 }
