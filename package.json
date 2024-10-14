@@ -1,0 +1,6 @@
+{
+  "name": "bun-web-server",
+  "scripts": {
+		"setup": "cd server && bun install && cd ../web && bun install"
+	}
+}

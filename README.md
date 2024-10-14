@@ -6,13 +6,15 @@ To check where Bun is at in terms of drop-in node replacement/debuggability/spee
 Bun runtime:
 ```
 curl -fsSL https://bun.sh/install | bash # for macOS, Linux, and WSL
+
 powershell -c "irm bun.sh/install.ps1|iex" # for Windows
 ```
 
 Deps:
 ```
-cd server && bun install && cd ../web && bun  install
+bun setup
 ```
+In the repo root
 
 ## Run
 ```
