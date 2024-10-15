@@ -6,9 +6,15 @@
 	"configurations": [
 		{
 			"type": "bun",
+			"name": "Debug Server [docker attach]",
+			"request": "attach",
+			"url": "ws://localhost:6499/debugger",
+		},
+		{
+			"type": "bun",
 			"internalConsoleOptions": "neverOpen",
 			"request": "launch",
-			"name": "Debug Server",
+			"name": "Debug Server [local launch]",
 			"program": "src/index.ts",
 			"cwd": "${workspaceFolder}/server",
 			"stopOnEntry": false,

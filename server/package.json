@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+		"dev": "bun run --watch --inspect=0.0.0.0:6499/debugger src/index.ts",
     "start": "bun run --watch src/index.ts"
   },
   "devDependencies": {

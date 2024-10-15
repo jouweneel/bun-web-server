@@ -9,7 +9,7 @@ const api = () => {
 			const url = new URL(req.url);
 			if (url.pathname === "/favicon.ico") return new Response();
 
-			console.log(req.method, url);
+			console.log(req.method, url.pathname);
 			return new Response(JSON.stringify({ sup: 'G!' }));
 		},
 		error(server) {

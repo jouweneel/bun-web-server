@@ -9,8 +9,8 @@
 	"remote.autoForwardPorts": false,
 	"remote.SSH.defaultForwardedPorts": [
 		{
-			"localPort": 1234,
-			"remotePort": 1234,
+			"localPort": 5173,
+			"remotePort": 5173,
 			"name": "Web"
 		},
 		{
@@ -18,5 +18,10 @@
 			"remotePort": 8000,
 			"name": "Server"
 		},
+		{
+			"localPort": 6499,
+			"remotePort": 6499,
+			"name": "Server - debug"
+		}
 	]
 }

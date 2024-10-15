@@ -1,0 +1,22 @@
+services:
+  server:
+    image: oven/bun
+    command: bun dev
+    hostname: server
+    tty: true
+    working_dir: $PWD/server
+    ports:
+      - 127.0.0.1:8000:8000
+      - 127.0.0.1:6499:6499
+    volumes:
+      - ./server:$PWD/server
+
+  web:
+    image: oven/bun
+    command: bun dev
+    tty: true
+    working_dir: $PWD/web
+    ports:
+      - 127.0.0.1:5173:5173
+    volumes:
+      - ./web:$PWD/web
