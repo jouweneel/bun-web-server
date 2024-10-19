@@ -1,0 +1,3 @@
+[submodule "server/@bw/base"]
+	path = server/@bw/base
+	url = git@github.com:ByteWriters/base.git

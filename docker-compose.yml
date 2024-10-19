@@ -1,10 +1,12 @@
 services:
   server:
     image: oven/bun
-    command: bun dev
-    hostname: server
+    command: ${SERVER_START_CMD:-"bun start"}
+    restart: unless-stopped
     tty: true
     working_dir: $PWD/server
+    environment:
+      NODE_ENV: development
     ports:
       - 127.0.0.1:8000:8000
       - 127.0.0.1:6499:6499
@@ -14,9 +16,14 @@ services:
   web:
     image: oven/bun
     command: bun dev
+    restart: unless-stopped
     tty: true
     working_dir: $PWD/web
+    environment:
+      NODE_ENV: development
     ports:
       - 127.0.0.1:5173:5173
     volumes:
       - ./web:$PWD/web
+    depends_on:
+      - server
