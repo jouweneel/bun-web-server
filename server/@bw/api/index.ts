@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 
 import { ApiStatus, ErrorLevels } from "../base/types";
 import { ApiError } from "../base/error";
-import type { ApiRequest } from "../base/types";
+import type { ApiContext } from "../base/types";
 
 export interface ApiConfig {
 	// logger?: BaseLogger
@@ -15,39 +15,45 @@ export class Api {
 	}
 
 	async fetch(req: Request, server: Server): Promise<Response> {
-		const request = req as ApiRequest;
+		const url = new URL(req.url);
 
-		request.context = {
+		const context: ApiContext = {
 			unix_start: Date.now(),
 			unix_stop: -1,
 			time_ms: -1,
 			trace_id: randomUUID(),
+			request: {
+				body: req.body,
+				headers: JSON.parse(JSON.stringify(req.headers)),
+				method: req.method,
+				pathname: url.pathname,
+			}
 		};
 
-		const url = new URL(req.url);
-
 		try {
+			// Find matching route, call with request, context & deps(?)
 
 		} catch(e) {
 			const stop = Date.now();
-			request.context.unix_stop = stop;
-			request.context.time_ms = stop - request.context.unix_start;
+			context.unix_stop = stop;
+			context.time_ms = stop - context.unix_start;
 
 			throw ApiError.fromError(
 				e as Error,
-				{ code: 'api:unhandled', request }
+				{ code: 'api:unhandled-error', context }
 			);
 		}
 
 		const stop = Date.now();
-		request.context.unix_stop = stop;
-		request.context.time_ms = stop - request.context.unix_start;
+		context.unix_stop = stop;
+		context.time_ms = stop - context.unix_start;
 
-		throw new ApiError('api:not_found', {
+		throw new ApiError('api:not-found', {
+			data: { method: req.method, pathname: url.pathname },
 			level: ErrorLevels.Warn,
-			message: `${request.method} ${url.pathname} not found!`,
-			request,
+			message: `${req.method} ${url.pathname} not found!`,
 			status: ApiStatus.NotFound,
+			context,
 		});
 	}
 }

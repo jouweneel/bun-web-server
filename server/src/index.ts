@@ -1,8 +1,7 @@
 import { Api } from '../@bw/api';
-import { envIs } from '../@bw/base/env';
 import { ApiError } from '../@bw/base/error';
 import { TagLogger } from '../@bw/base/logger';
-import { typeFromLevel, type ApiRequest } from '../@bw/base/types';
+import { type ApiRequest } from '../@bw/base/types';
 
 const delay = (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms));
 
